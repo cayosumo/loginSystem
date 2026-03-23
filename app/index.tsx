@@ -1,41 +1,112 @@
-import React  from "react";
-import {View,Text,TouchableOpacity} from 'react-native'
-import { useRouter } from 'expo-router'
+import React from "react";
+import { View, Text, TouchableOpacity, ScrollView,TextInput } from 'react-native';
+import { useRouter } from 'expo-router';
+import { useState } from "react";
+export default function App() {
+  const router = useRouter();
 
-export default function App(){
-   const router = useRouter()
-  return(
-   <View style={{flex:1,backgroundColor:'#80ff00'}}>
-    <View>
+  const Etinerario = ['Etim', 'Bio', 'Exatas', 'Edificações', 'Linguagens'];
+  
+  const turma = ['1° Serie', '2° Serie', '3° Serie'];
+
+
+  const [selecionado, setSelecionado] = useState(String)
+    const [selecionado2, setSelecionado2] = useState(String)
+  return (
+    <View style={{ flex: 1, backgroundColor: '#80ff00' }}>
+
+
       <Text
-      style={{backgroundColor:'#323131',padding:25,textAlign:'center',color:'white',fontSize:20}}
+        style={{
+          backgroundColor: '#323131',
+          padding: 25,
+          textAlign: 'center',
+          color: 'white',
+          fontSize: 20
+        }}
       >
-   TygentWorks
+        TygentWorks
       </Text>
-      <View
-      style={{justifyContent:'center',alignContent:'center',marginTop:150}}
-      >
-        <TouchableOpacity
-        style={{backgroundColor:'#e7e7e7',width:350,height:75,alignSelf:'center',justifyContent:'center',borderRadius:15,borderWidth:4}}
+
+
+      <View style={{ alignItems: 'center', marginTop: 20 }}>
+
+        <ScrollView
+          style={{
+            maxHeight: 100,
+            width: '90%',
+            backgroundColor:'white' ,
+            borderRadius: 10
+          }}
         >
-          <Text 
-          style={{textAlign:'center',fontSize:30}}
-          >
-            Aluno
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        style={{marginTop:10,backgroundColor:'#ff0066',width:350,height:75,alignSelf:'center',justifyContent:'center',borderRadius:15,borderWidth:4}}
-        onPress={()=> router.push('/login/aluno')}
+
+          {Etinerario.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={{
+                padding: 15,
+                borderBottomWidth: 1,
+                borderBottomColor: '#ccc',
+                backgroundColor: selecionado === item ? 'green' : 'white'
+                }}
+                onPress={() => setSelecionado(item)}
+             
+            >
+              <Text style={{ fontSize: 16 }}>
+                {item}
+              </Text>
+            </TouchableOpacity>
+          ))}
+
+        </ScrollView>
+
+
+         <ScrollView
+          style={{
+            maxHeight: 100,
+            width: '90%',
+            backgroundColor:'white' ,
+            borderRadius: 10,
+            marginTop:35
+          }}
         >
-          <Text 
-          style={{textAlign:'center',fontSize:30}}
+
+          {turma.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              style={{
+                padding: 15,
+                borderBottomWidth: 1,
+                borderBottomColor: '#ccc',
+                backgroundColor: selecionado2 === item ? 'green' : 'white'
+                }}
+                onPress={() => setSelecionado2(item)}
+             
+            >
+              <Text style={{ fontSize: 16 }}>
+                {item}
+              </Text>
+            </TouchableOpacity>
+          ))}
+
+        </ScrollView>
+        
+        <TextInput
+        placeholder="senha"
+        style={{backgroundColor:'white',marginTop:35,height:60,width:'90%',textAlign:'center',borderWidth:3,fontSize:30,borderRadius:10}}
+        />
+
+        <TouchableOpacity
+        style={{ backgroundColor:'#000000',marginTop:25,width:'90%',height:75,justifyContent:'center',alignItems:'center',borderRadius:10,borderWidth:2}}
+        >
+          <Text
+          style={{color:'white',fontSize:30}}
           >
-            Professor
+            Entrar
           </Text>
         </TouchableOpacity>
       </View>
+
     </View>
-   </View>
-  )
+  );
 }
